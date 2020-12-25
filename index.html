@@ -8,7 +8,6 @@
 	<script>
 		let sum = 0;
 		let current = 0;
-		let prev = 0;
 		let prevSymb;
 		let drob = false;
 		let calculs = false;
@@ -26,7 +25,13 @@
 				case 7:
 				case 8:
 				case 9:
-					
+					if(result)
+					{
+						current = 0;
+						sum = 0;
+						string = "";
+						result = false;
+					}
 					if(key == 0 && current == 0) return;
 					if(current == 0 && !drob) current = "";
 					if(current.length > 9) return;
@@ -36,7 +41,6 @@
 				case 'C':
 					current = 0;
 					sum = 0;
-					prev = 0;
 					drob = false;
 					string = "";
 					calculs = false;
@@ -48,6 +52,11 @@
 					
 					break;
 				case '.':
+					if(current[current.length-1] == ".") 
+					{
+						input("<-");
+						break;
+					}
 					if(drob) return;
 					drob = true;
 					current += ".";
@@ -114,6 +123,7 @@
 				if(drob) drob = false;
 				current = 0;
 				calculs = false;
+				result = false;
 			}
 			document.getElementsByClassName("screen")[0].innerHTML = string + current;
 			

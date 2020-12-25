@@ -1,0 +1,42 @@
+.main{
+	border: 5px solid rgb(109,172,213);
+	width: fit-content;
+	margin: 30px;
+}
+.screen{
+	height: 35px;
+	width: 376px;
+	border: 1px solid #000;
+	padding: 20px 10px;
+	margin-left: 10px;
+	margin-top: 20px;
+	text-align: end;
+	font-size: 37px;
+}
+.sum{
+	color: rgba(0,0,0,0.4);
+}
+.main table{
+	border-collapse: separate;
+	border-spacing: 10px;
+}
+.main table td{
+	cursor: pointer;
+	width: 70px;
+	height: 70px;
+	text-align: center;
+	vertical-align: middle;
+	background: rgb(247,247,247);
+	background: linear-gradient(to top, rgb(222,222,222),rgb(247,247,247));
+	border: 1px solid rgb(159,159,159);
+	user-select:none;
+	font-size: 30px;
+}
+.main table td:hover{
+	background: rgb(235,235,235);
+}
+.main table td:active{
+	border: 2px solid rgb(115,148,203);
+	width: 68px;
+	height: 68px;
+}

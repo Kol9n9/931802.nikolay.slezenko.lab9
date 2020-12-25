@@ -2,15 +2,158 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Task 8</title>
+	<title>Task 9</title>
 	<link type="text/css" rel="stylesheet" href="css/reset.css"/>
 	<link type="text/css" rel="stylesheet" href="css/main.css"/>
 	<script>
-		
+		let sum = 0;
+		let current = 0;
+		let prev = 0;
+		let prevSymb;
+		let drob = false;
+		let calculs = false;
+		let result = false;
+		let string = "";
+		function input(key){
+			switch(key){
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					
+					if(key == 0 && current == 0) return;
+					if(current == 0 && !drob) current = "";
+					if(current.length > 9) return;
+					current += ""+key;
+					
+					break;
+				case 'C':
+					current = 0;
+					sum = 0;
+					prev = 0;
+					drob = false;
+					string = "";
+					calculs = false;
+					break;
+				case '<-':
+					if(drob && current[current.length-1] == ".") drob = false;
+					current = current.substring(0,current.length-1);
+					if(current.length == 0) current = 0;
+					
+					break;
+				case '.':
+					if(drob) return;
+					drob = true;
+					current += ".";
+					
+					break;
+				case '-':
+					if(prevSymb != "-")
+					{
+						input(prevSymb);
+						prevSymb = "-";
+					}
+					prevSymb = "-";
+					calculs = true;
+					if(sum == 0) sum = parseFloat(current);
+					else sum -= parseFloat(current);
+					break;
+				case '+':
+					if(prevSymb != "+")
+					{
+						input(prevSymb);
+						prevSymb = "+";
+					}
+					prevSymb = "+";
+					calculs = true;
+					sum += parseFloat(current);
+					break;
+				case '*':
+					if(prevSymb != "*")
+					{
+						input(prevSymb);
+						prevSymb = "*";
+					}
+					prevSymb = "*";
+					calculs = true;
+					if(prevSymb == "*" && current == 0) break;
+					if(sum == 0) sum = parseFloat(current);
+					else sum *= parseFloat(current);
+					break;
+				case '/':
+					if(prevSymb != "/")
+					{
+						input(prevSymb);
+						prevSymb = "/";
+					}
+					prevSymb = "/";
+					calculs = true;
+					if(prevSymb == "/" && current == 0) break;
+					let val = parseFloat(current);
+					if(sum == 0) sum = parseFloat(current);
+					else sum /= val;
+					break;
+				case '=':
+					input(prevSymb);
+					string = sum;
+					result = true;
+					current = 0;
+					break;
+			}
+			if(calculs){
+				string = "<span class='sum'>";
+				string += sum;
+				string += " "+prevSymb+" ";
+				string += "</span>"
+				if(drob) drob = false;
+				current = 0;
+				calculs = false;
+			}
+			document.getElementsByClassName("screen")[0].innerHTML = string + current;
+			
+		}
 	</script>
 </head>	
 
 <body>
-	
+	<div class="main">
+		<div class="screen">
+			0
+		</div>
+		<table>
+			<tr>
+				<td onclick="input(7)">7</td>
+				<td onclick="input(8)">8</td>
+				<td onclick="input(9)">9</td>
+				<td onclick="input('/')">/</td>
+				<td onclick="input('C')">C</td>
+			</tr>
+			<tr>
+				<td onclick="input(4)">4</td>
+				<td onclick="input(5)">5</td>
+				<td onclick="input(6)">6</td>
+				<td onclick="input('*')">*</td>
+				<td onclick="input('<-')"><-</td>
+			</tr>
+			<tr>
+				<td onclick="input(1)">1</td>
+				<td onclick="input(2)">2</td>
+				<td onclick="input(3)">3</td>
+				<td onclick="input('-')">-</td>
+				<td rowspan=2 onclick="input('=')">=</td>
+			</tr>
+			<tr>
+				<td colspan=2 onclick="input(0)">0</td>
+				<td onclick="input('.')">.</td>
+				<td onclick="input('+')">+</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
